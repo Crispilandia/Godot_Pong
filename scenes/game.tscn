@@ -1,0 +1,68 @@
+[gd_scene load_steps=8 format=3 uid="uid://s3jopyqrqx4w"]
+
+[ext_resource type="Script" uid="uid://ce0cm2mifphdy" path="res://scripts/game.gd" id="1_iywne"]
+[ext_resource type="Texture2D" uid="uid://bhq7xd47cnje6" path="res://assets/img/Board.png" id="1_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://crs3cux3f2i72" path="res://scenes/player.tscn" id="1_uwrxv"]
+[ext_resource type="PackedScene" uid="uid://b8cvrce4cftf5" path="res://scenes/ball.tscn" id="2_lnu2h"]
+[ext_resource type="PackedScene" uid="uid://cbc175jal2543" path="res://scenes/npc.tscn" id="3_lbhrr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_iywne"]
+size = Vector2(20, 714)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p57ef"]
+size = Vector2(681, 14)
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_iywne")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(625.0201, 323.525)
+rotation = 7.12162e-05
+scale = Vector2(0.85449886, 1.4040327)
+texture = ExtResource("1_lbhrr")
+
+[node name="Player" parent="." instance=ExtResource("1_uwrxv")]
+position = Vector2(591, 621)
+Max_Speed = 400.0
+Ini_Speed = 100.0
+Acceleration = 25.0
+
+[node name="NPC" parent="." instance=ExtResource("3_lbhrr")]
+position = Vector2(625, 31)
+
+[node name="Ball" parent="." instance=ExtResource("2_lnu2h")]
+position = Vector2(767, 324)
+Speed = -200.0
+Max_Speed = 600.0
+Acceleration = 25.0
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(263, 328)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(10, -3)
+shape = SubResource("RectangleShape2D_iywne")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(973, 326)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+position = Vector2(5, -3.5)
+shape = SubResource("RectangleShape2D_iywne")
+
+[node name="Death" type="Area2D" parent="."]
+position = Vector2(624, -2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Death"]
+position = Vector2(1, -6)
+shape = SubResource("RectangleShape2D_p57ef")
+
+[node name="Death2" type="Area2D" parent="."]
+position = Vector2(625, 663)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Death2"]
+position = Vector2(0.5, -6)
+shape = SubResource("RectangleShape2D_p57ef")
+
+[connection signal="body_entered" from="Death" to="." method="_on_death_body_entered"]
+[connection signal="body_entered" from="Death2" to="." method="_on_death_body_entered"]

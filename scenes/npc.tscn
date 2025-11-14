@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://cbc175jal2543"]
+
+[ext_resource type="Script" uid="uid://br1ce17kb1p5g" path="res://scripts/player.gd" id="1_abqhh"]
+[ext_resource type="Texture2D" uid="uid://cabvx1oxjtv30" path="res://assets/img/Computer.png" id="2_rv78h"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_abqhh"]
+radius = 18.0
+height = 120.0
+
+[node name="NPC" type="CharacterBody2D"]
+motion_mode = 1
+wall_min_slide_angle = 0.0
+script = ExtResource("1_abqhh")
+Is_NPC = true
+Max_Speed = 350.0
+Ini_Speed = 150.0
+Acceleration = 25.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = -1.5707964
+texture = ExtResource("2_rv78h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -9)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_abqhh")
